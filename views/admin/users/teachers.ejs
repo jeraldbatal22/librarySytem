@@ -1,0 +1,88 @@
+<%- include('./../../includes/header') %>
+  <!-- =============================================== -->
+
+  <%- include('./../../includes/sidebar') %>
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Teachers</h3>
+        </div>
+
+        <%- include('./../../includes/message') %>
+
+        <div class="box-body">
+
+          <div id="message"></div>
+
+          <table id="list_of_books" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Image</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Date Updated</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                <% for(const row of teachers) {%>
+                      <td><%=row.id%></td>
+                      <td><%=row.firstname%></td>
+                      <td><%=row.lastname%></td>
+                      <td><%=row.username%></td>
+                      <td><%=row.password%></td>
+                      <td><a href="/uploads/images/<%=row.images%>"><img src="/uploads/images/<%=row.images%>" class="user-image" alt="User Image"></a></td>
+                      <td><label class="text text-success"><%=(row.statusw === 3) ? '' : ''%>Active</label></td>
+                      <td><%=new Date(row.date_created).toLocaleString()%></td>
+                      <td><%=new Date(row.date_updated).toLocaleString()%></td>
+                      <td>
+                        <button onclick="editTeachers('<%=row.id%>', '<%=row.firstname%>', '<%=row.lastname%>', '<%=row.username%>', '<%=row.password%>', '<%=row.email%>')" type="button" class=" btn-info btn-xm"><i class="fa fa-edit"></i> Edit</button>
+                        <a href="/admin/users/deleteTeacher?id=<%=row.id%>"  type="button" class=" btn-danger btn-xm"><i class="fa fa-eraser"></i>  Delete</a>
+                      </td>
+                    </tr>
+                <%}%>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('./../../includes/footer') %>
+
+
+  <%- include('./editTeachers') %>
+
+
+  <script>
+  function editTeachers ( id, firstname, lastname, username, password, email) {
+      $('#modal-edit').modal('show')
+      $('#edit_id').val(id)
+      $('#edit_firstname').val(firstname)
+      $('#edit_lastname').val(lastname)
+      $('#edit_username').val(username)
+      $('#edit_password').val(password)
+      $('#edit_email').val(email)
+      console.log(id, firstname, lastname, username, password, email)
+  } 
+  </script>

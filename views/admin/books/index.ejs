@@ -1,0 +1,92 @@
+<%- include('./../../includes/header') %>
+  <!-- =============================================== -->
+
+  <%- include('./../../includes/sidebar') %>
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Books</h3>
+        </div>
+
+        <%- include('./../../includes/message') %>
+
+        <div class="box-body ">
+
+          <button type="button" class="btn btn-primary" id="resetForm" data-toggle="modal" data-target="#modal-add">
+            <i class="fa fa-plus"></i>
+            Create Books
+          </button><br><br>
+
+          <div id="message"></div>
+
+          <div class="table-responsive no-padding">
+            <table id="list_of_books" class="table table-bordered table-striped  table-hover">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Book Name</th>
+                  <th>Category Name</th>
+                  <th>Date Created</th>
+                  <th>Date Update</th>
+                  <th>Status</th>
+                  <th>Stocks</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(const row of books) {%>
+                      <tr>
+                        <td><%=row.id%></td>
+                        <td><%=row.name%></td>
+                        <td><%=row.category_name%></td>
+                        <td><%=new Date(row.date_created).toLocaleString()%></td>
+                        <td><%=new Date(row.date_updated).toLocaleString()%></td>
+                        <td>
+                          <label class="text text-<%=(row.status === 1) ? 'success' : 'danger'%>"><%=(row.status === 1) ? 'Available' : 'Not Available'%></label>  
+                        </td>
+                        <td><label class="text text-<%=(row.stocks <= 0) ? 'danger' : ''%>"><%=(row.stocks <= 0) ? 'Out of Stocks' : row.stocks%></label></td>
+                        <td>
+                          <button onclick="editBooks('<%=row.id%>', '<%=row.name%>', '<%=row.category_id%>','<%=row.stocks%>')" type="button" class=" btn-info btn-sm col-md-6 col-md-12"><i class="fa fa-edit"></i> Edit</button>
+                          <a href="/admin/books/delete?id=<%=row.id%>"  type="button" class=" btn-danger btn-sm col-md-6 col-md-12"><i class="fa fa-eraser"></i>  Delete</a>
+                        </td>
+                      </tr>
+                <%}%>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+
+  <%- include('./add') %>
+
+  <%- include('./edit') %>
+
+  <%- include('./../../includes/footer') %>
+
+  <script>
+    function editBooks (id, edit_name, edit_category, edit_stocks) {
+      $('#modal-edit-books').modal('show');
+      $('#edit_id').val(id)
+      $('#edit_name').val(edit_name)
+      $('#edit_category').val(edit_category)
+      $('#edit_stocks').val(edit_stocks)
+      console.log(id, edit_name, edit_category, edit_stocks)
+    }
+  </script> 

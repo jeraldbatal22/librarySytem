@@ -1,0 +1,145 @@
+<%- include('./../../includes/header') %>
+  <!-- =============================================== -->
+
+  <%- include('./../../includes/sidebar') %>
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Students Books List</h3>
+        </div>
+
+        <%- include('./../../includes/message') %>
+
+        <div class="box-body ">
+
+
+          <div class="table-responsive no-padding">
+            <table id="list_of_books" class="table table-bordered table-striped  table-hover">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Book Name</th>
+                  <th>Category</th>
+                  <th>Date Created</th>
+                  <th>Status</th>
+                  <th>Stocks</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(const row of books) {%>
+                      <tr>
+                        <td><%=row.id%></td>
+                        <td><%=row.name%></td>
+                        <td><%=row.category_name%></td>
+                        <td><%=new Date(row.date_created).toLocaleString()%></td>
+                        <td>
+                          <label class="text text-<%=(row.status === 1) ? 'success' : 'danger'%>"><%=(row.status === 1) ? 'Available' : 'Not Available'%></label>
+                        </td>
+                        <td><label class="text text-<%=(row.stocks <= 0) ? 'danger' : ''%>"><%=(row.stocks <= 0) ? 'Out of Stocks' : row.stocks%></label></td>
+
+                        <td>
+                          <button 
+                            onclick="GetBorrowBooks('<%=row.id%>', '<%=row.name%>', '<%=row.category_id%>','<%=row.stocks%>' , '<%=row.category_name%>', '<%=row.book_id%>')" 
+                            type="button" class="btn btn-info btn-xm" 
+                            data-toggle="modal" 
+                            data-target="#modal_borrow_books" <%=(row.stocks <= 0) ? 'disabled' : ''%>
+                          ><i class="fa fa-hand-grab-o"></i> Borrow</button>
+                        </td>
+                      </tr>
+                <%}%>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+
+  <%- include('./../../includes/footer') %>
+
+  <div class="modal fade" id="modal_borrow_books">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <p class="modal-title">Are you sure you want to borrow this books?</p>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" method="post" id="form-books-edit" action="/students/books/borrow">
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" >Books Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control hidden"  id="book_list_id" name="id" >
+                      <input type="text" class="form-control hidden"  id="borrow_books_id" name="book_id"  >
+                      <input type="text" class="form-control hidden"  id="borrow_books_category_id" name="category_id"  >
+                      <p class="form-control" id="borrow_books" style="font-weight: bold;"></p>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" >Books Category</label>
+                    <div class="col-sm-10">
+                      <p class="form-control" id="borrow_category" style="font-weight: bold;"></p>
+                      <select class="form-control hidden" name="category_ids" style="font-weight: bold;">
+                        <% for(const row of category) {%>
+                            <option id="borrow-category"  value="<%=row.id%>"><%=row.name%></option>
+                        <%}%>
+                      </select>
+                    </div>
+                  </div> 
+ 
+                  <div class="form-group">
+                    <p class="col-sm-5 control-label" >How many books ?</p>
+                    <div class="col-sm-3">
+                      <input type="number" class="form-control" id="borrow_stocks" name="stocks" placeholder="">
+                    </div>
+                  </div>
+                
+                <div class="modal-footer">
+                  <button type="submit" name="btn_submit" id="btn-save" class="btn btn-primary col-sm-12">Yes</button><br><br>
+                  <button type="button" class="btn btn-default  col-sm-12" data-dismiss="modal">No</button>
+                </div>
+  
+              </div>
+            </form>
+        </div>
+       
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+ <script>
+   function GetBorrowBooks (id, borrow_books,  category_id, stocks, category_name, book_id) {
+     $('#book_list_id').val(id)
+     $('#borrow_books_id').val(book_id)
+     $('#borrow_books_category_id').val(category_id)
+     $('#borrow_stocks').val(stocks)
+
+     $('#borrow_books').html(borrow_books)
+     $('#borrow_category').html(category_name)
+
+     console.log(book_id, category_id, stocks)
+
+   }
+ </script>

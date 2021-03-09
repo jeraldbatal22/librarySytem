@@ -1,0 +1,81 @@
+<%- include('./../../includes/header') %>
+  <!-- =============================================== -->
+
+  <%- include('./../../includes/sidebar') %>
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Borrow Books Information</h3>
+        </div>
+
+        <%- include('./../../includes/message') %>
+
+        <div class="box-body">
+
+          <div id="message"></div>
+
+          <table id="list_of_books" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Borrowed By</th>
+                <th>Book Name</th>
+                <th>Category Name</th>
+                <th>Quantity</th>
+                <th>Date Borrowed</th>
+                <th>Date Borrowed Updated</th>
+                <th>Status</th>
+                <th>Action</th> 
+              </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                <%for(const row of borrows) {%>
+                      <td><%=row.id%></td>
+                      <td><%=row.firstname%> <%=row.lastname%></td>
+                      <td><%=row.name%></td>
+                      <td><%=row.category_name%></td>
+                      <td>
+                        <h5 class="text text-dark"><%=row.quantity%>  Books  </h5>
+                      </td>
+                      <td><%=new Date(row.date_created).toLocaleString()%></td>
+                      <td><%=new Date(row.date_updated).toLocaleString()%></td>
+                      <td>
+                          <% if(row.book_status === 0) {%>
+                            <label class="text text-success">Pending</label>  
+                          <%} if(row.book_status === 3) {%>
+                            <label class="text text-info">Approved </label>
+                          <%} if(row.book_status === 4) {%>
+                            <label class="text text-warning">Canceled </label>
+                          <%}%> 
+                      </td>
+                      <td>
+                        <a href="/admin/borrow_books/approve?id=<%=row.id%>" type="button" class=" btn-info btn-sm"><i class="fa fa-check"></i> Approve</a>
+                        <a href="/admin/borrow_books/notApprove?id=<%=row.id%>" type="button" class=" btn-danger btn-sm"><i class="fa fa-close"></i>  Cancel</a>
+                      </td>
+                    </tr>
+                <%}%>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('./../../includes/footer') %>
+
+ 

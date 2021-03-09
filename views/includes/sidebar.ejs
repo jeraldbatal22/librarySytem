@@ -1,0 +1,65 @@
+  <!-- Left side column. contains the sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        
+        <% if(role === 1) {%>
+            <li>
+                <a href="/students/books/list">
+                    <i class="fa fa-list"></i> <span>Books</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/students/borrow_books/list">
+                    <i class="fa fa-calendar"></i> <span>My Records</span>
+                </a>
+            </li>
+
+        <%} else {%> 
+            
+            <li>
+                <a href="/admin/books/list">
+                    <i class="fa fa-book"></i> <span>Books</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/admin/category/list">
+                    <i class="fa  fa-calendar-check-o"></i> <span>Category</span>
+                </a>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                <i class="fa fa-users"></i> <span>Users</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                </a>
+                <ul class="treeview-menu">
+                <li><a href="/admin/users/createUsers"><i class="fa fa-plus"></i> Add Users</a> </li>
+                <li><a href="/admin/users/students/list"><i class="fa fa-male"></i> Students</a></li>
+                <li><a href="/admin/users/teachers/list"><i class="fa fa-user-plus"></i> Teachers</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="/admin/borrow_books/list">
+                    <i class="fa fa-book"></i> <span>Borrow Books</span>
+                </a>
+            </li>
+
+        <%}%>
+
+        <li><a href="/login/logout"><i class="fa fa-circle"></i> <span>Logout </span></a></li>
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  

@@ -1,0 +1,56 @@
+<div class="modal fade" id="modal-edit-books">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Edit Books</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" method="post" id="form-books-edit" action="/admin/books/update">
+              <div class="box-body">
+                
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >Book Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control hidden"  id="edit_id" name="id" >
+                    <input type="text" class="form-control" id="edit_name" name="edit_name" placeholder="Books Category" style="font-weight: bold;">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" > Category</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="edit_category" style="font-weight: bold;">
+                        <% for(const row of category) {%>
+                            <option id="edit_category"  value="<%=row.id%>" ><%=row.name%></option>
+                        <%}%>
+                        </select>
+                    </div>
+                </div> 
+
+              
+                <div class="box-body">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" >Quantity</label>
+                    <div class="col-sm-2">
+                      <input type="number" class="form-control" id="edit_stocks" name="edit_stocks" placeholder="Books Category">
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  <button type="submit" name="btn_submit" id="btn-save" class="btn btn-primary">Save Books</button>
+                </div>
+  
+              </div>
+            </form>
+        </div>
+       
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

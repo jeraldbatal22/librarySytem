@@ -1,0 +1,130 @@
+<%- include('./../includes/header') %>
+  <!-- =============================================== -->
+
+<%- include('./../includes/sidebar') %>
+
+  <!-- =============================================== -->
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+          User Profile
+        </h1>
+        
+      </section>
+  
+      <!-- Main content -->
+      <section class="content">
+  
+        <div class="row">
+          <div class="col-md-12">
+  
+            <!-- Profile Image -->
+            <div class="box box-warning">
+              <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="../uploads/images/<%=getProfile.images%>" alt="User profile picture">
+  
+                <h3 class="profile-username text-center"><%=getProfile.fullname%></h3>
+
+                 <%- include('./../includes/message') %>
+
+                <form class="" method="post" id="form-books-edit" action="/usersProfile/update">
+                    <ul class="list-group list-group-unbordered">
+
+                        <li class="list-group-item hidden">
+                            <p class="col-sm-5 control-label" >Id</p>
+                            <input class="form-control" type="text" id="edit_id" name="id" value="<%=getProfile.id%>">
+                        </li>
+
+                        <li class="list-group-item">
+                            <p class="col-sm-5 control-label" >Firstname</p>
+                            <input class="form-control" type="text" id="edit_firstname" name="firstname" value="<%=getProfile.firstname%>">
+                        </li>
+                        
+                        <li class="list-group-item">
+                            <p class="col-sm-5 control-label" >Lastname</p>
+                            <input class="form-control" type="text" id="edit_lastname" name="lastname" value="<%=getProfile.lastname%>">
+                        </li>
+
+                        <li class="list-group-item">
+                            <p class="col-sm-5 control-label" >Username</p>
+                            <input class="form-control" type="text" id="edit_username" name="username" value="<%=getProfile.username%>">
+                        </li>
+
+                        <li class="list-group-item">
+                            <p class="col-sm-5 control-label" >Password</p>
+                            <input class="form-control" type="password" id="edit_password" name="password" value="<%=getProfile.password%>">
+                        </li>
+
+                        <li class="list-group-item">
+                            <p class="col-sm-5 control-label" >Email</p>
+                            <input class="form-control" type="text" id="edit_email" name="email" value="<%=getProfile.email%>">
+                        </li>
+
+                        <li class="list-group-item">
+                            <p class="col-sm-5 control-label" >Role</p>
+                            <select name="role" class="form-control">
+                            <option></option>
+                            <option value="1"<%= (getProfile.role === 1) ? 'selected' : ''%>> Students </option>
+                            <option value="2"<%= (getProfile.role === 2) ? 'selected' : ''%>> Teachers </option>
+                            </select>
+            
+                        </li>
+                    </ul>
+
+                    <button type="submit" name="btn_submit"  class="btn btn-primary btn-block"><b>Save Edit</b></button>
+
+                </form>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+  
+            <!-- About Me Box -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">About Me</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+  
+                <p class="text-muted">
+                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+  
+                <hr>
+  
+                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+  
+                <p class="text-muted">Malibu, California</p>
+  
+                <hr>
+  
+                <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+  
+                <p>
+                  <span class="label label-danger">UI Design</span>
+                  <span class="label label-success">Coding</span>
+                  <span class="label label-info">Javascript</span>
+                  <span class="label label-warning">PHP</span>
+                  <span class="label label-primary">Node.js</span>
+                </p>
+  
+                <hr>
+  
+                <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+  
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+          <!-- /.col -->
+</div>
+
+
+<%- include('./../includes/footer') %>
+

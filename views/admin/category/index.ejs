@@ -1,0 +1,89 @@
+<%- include('./../../includes/header') %>
+
+  <!-- =============================================== -->
+
+  <%- include('./../../includes/sidebar') %>
+
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Books Category</h3>
+        </div>
+
+        <%- include('./../../includes/message') %>
+
+
+        <div class="box-body">
+
+          <button type="button" class="btn btn-primary" id="resetForm" data-toggle="modal" data-target="#modal-default">
+            <i class="fa fa-plus"></i>
+            Create Category
+          </button><br><br>
+
+          <div id="message"></div>
+
+          <div class="table-responsive no-padding">
+            <table id="list_of_books" class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Book Category</th>
+                  <th>Date Created</th>
+                  <th>Date Update</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% for(const row of books) {%>
+                      <tr>
+                        <td><%=row.id%></td>
+                        <td><%=row.name%></td>
+                        <td><%=new Date(row.date_created).toLocaleString()%></td>
+                        <td><%=new Date(row.date_updated).toLocaleString()%></td>
+                        <td>
+                          <label class="text text-<%=(row.status === 1) ? 'success' : 'danger'%>"><%=(row.status === 1) ? 'Available' : 'Not Available'%></label>   
+                        </td>
+                        <td>
+                          <button onclick="editCategory(`<%=row.id%>`, '<%=row.name%>', '<%=row.status%>')" type="button" class=" btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>
+                          <a href="/admin/category/delete?id=<%=row.id%>"  type="button" class=" btn-danger btn-sm"><i class="fa fa-eraser"></i>  Delete</a>
+                        </td>
+                      </tr>
+                    <%}%> 
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('./../../includes/footer') %>
+  
+
+  <%- include('./add')%>
+
+  <%- include('./edit')%>
+
+  <script>
+    function editCategory (id,name) {
+      $('#modal-edit-category').modal('show');
+      $('#edit_id').val(id)
+      $('#edit_category').val(name)
+      console.log(name)
+    }
+  </script>
